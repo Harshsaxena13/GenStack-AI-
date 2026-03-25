@@ -1,0 +1,322 @@
+/*
+  styles.css – Design tokens, theme variables, reset, and typography
+  ---------------------------------------------------------------
+  This file defines CSS custom properties for light and dark themes, a simple
+  reset, and baseline typography. All other style rules in the project will
+  reference these tokens via `var(--property-name)`. The dark theme is activated
+  by adding the `.theme-dark` class to a top‑level element (commonly the <body>
+  element) – the accompanying script.js will toggle this class.
+*/
+
+/* --------------------------------------------------------------------------
+   1. Reset & Box‑sizing
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  font-size: 100%; /* ensures 1rem = 16px by default */
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. Design Tokens – Light Theme (default)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Core palette */
+  --color-bg: #ffffff;
+  --color-text: #222222;
+  --color-primary: #0066ff;
+  --color-primary-hover: #0052cc;
+  --color-secondary: #ff6600;
+  --color-muted: #f5f5f5;
+
+  /* Typography */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --line-height-base: 1.6;
+
+  /* Spacing */
+  --spacing-unit: 1rem; /* 16px */
+}
+
+/* --------------------------------------------------------------------------
+   3. Dark Theme Overrides
+   -------------------------------------------------------------------------- */
+.theme-dark {
+  --color-bg: #1a1a1a;
+  --color-text: #e0e0e0;
+  --color-primary: #3399ff;
+  --color-primary-hover: #267acc;
+  --color-secondary: #ff9966;
+  --color-muted: #2a2a2a;
+}
+
+/* Optional explicit light theme class – useful when toggling programmatically */
+.theme-light {
+  /* Re‑declare the default values to make the intent clear */
+  --color-bg: #ffffff;
+  --color-text: #222222;
+  --color-primary: #0066ff;
+  --color-primary-hover: #0052cc;
+  --color-secondary: #ff6600;
+  --color-muted: #f5f5f5;
+}
+
+/* --------------------------------------------------------------------------
+   4. Typography – Headings, Paragraphs, Links
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+  color: var(--color-text);
+}
+
+h1 { font-size: 2.25rem; }
+ h2 { font-size: 1.875rem; }
+ h3 { font-size: 1.5rem; }
+ h4 { font-size: 1.25rem; }
+ h5 { font-size: 1rem; }
+ h6 { font-size: 0.875rem; }
+
+p {
+  margin-bottom: var(--spacing-unit);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover,
+ a:focus {
+  color: var(--color-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   5. Form Elements – Minimal Reset & Button Styling
+   -------------------------------------------------------------------------- */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover,
+button:focus {
+  background-color: var(--color-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   6. Utility – Visually hidden (for accessibility)
+   -------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   7. BEM‑styled Weather Component Layout
+   -------------------------------------------------------------------------- */
+
+/* Root container – establishes a grid that adapts via media queries */
+.weather {
+  display: grid;
+  gap: calc(var(--spacing-unit) * 1.5);
+  padding: var(--spacing-unit);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header – flex layout for branding and optional actions */
+.weather__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+  background-color: var(--color-muted);
+  border-radius: 4px;
+}
+
+.weather__header h1 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+/* Search bar – flex container with an input and button */
+.weather__search {
+  display: flex;
+  gap: calc(var(--spacing-unit) * 0.5);
+  padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+  background-color: var(--color-muted);
+  border-radius: 4px;
+}
+
+.weather__search input {
+  flex: 1 1 auto;
+  padding: calc(var(--spacing-unit) * 0.5);
+  background-color: #fff;
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
+}
+
+.weather__search button {
+  flex: 0 0 auto;
+}
+
+/* Current weather panel – simple card style */
+.weather__current {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-unit);
+  padding: calc(var(--spacing-unit) * 1.5);
+  background-color: var(--color-muted);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.weather__current .temp {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.weather__current .description {
+  font-size: var(--font-size-lg);
+  text-transform: capitalize;
+}
+
+/* Forecast grid – responsive grid of forecast items */
+.weather__forecast {
+  display: grid;
+  gap: var(--spacing-unit);
+}
+
+.weather__forecast-item {
+  background-color: var(--color-muted);
+  border-radius: 8px;
+  padding: calc(var(--spacing-unit) * 0.75);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather__forecast-item .day {
+  font-weight: 600;
+  margin-bottom: calc(var(--spacing-unit) * 0.25);
+}
+
+.weather__forecast-item .icon {
+  margin: calc(var(--spacing-unit) * 0.25) 0;
+}
+
+.weather__forecast-item .temp {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+/* Mobile – ≤600px: single‑column layout */
+@media (max-width: 600px) {
+  .weather {
+    grid-template-columns: 1fr;
+  }
+
+  .weather__forecast {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet – 601px‑1024px: header & search full width; current & forecast side‑by‑side */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .weather {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      "search search"
+      "current forecast";
+  }
+
+  .weather__header { grid-area: header; }
+  .weather__search { grid-area: search; }
+  .weather__current { grid-area: current; }
+  .weather__forecast { grid-area: forecast; }
+
+  .weather__forecast {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop – >1024px: three‑column layout with larger forecast grid */
+@media (min-width: 1025px) {
+  .weather {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+      "header header"
+      "search search"
+      "current forecast";
+  }
+
+  .weather__header { grid-area: header; }
+  .weather__search { grid-area: search; }
+  .weather__current { grid-area: current; }
+  .weather__forecast { grid-area: forecast; }
+
+  .weather__forecast {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

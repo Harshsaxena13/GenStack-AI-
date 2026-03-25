@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasko — Your Daily List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <main id="app">
+    <header class="app-header">
+      <div class="logo-mark">✦</div>
+      <h1 class="app-title">Tasko</h1>
+      <p class="app-subtitle">Stay on top of things.</p>
+    </header>
+
+    <section class="input-section" aria-label="Add new task">
+      <div class="input-wrapper">
+        <span class="input-icon">+</span>
+        <input
+          id="new-task-input"
+          type="text"
+          placeholder="What needs to be done?"
+          autocomplete="off"
+          aria-label="New task"
+          maxlength="200"
+        />
+        <button id="add-task-btn" aria-label="Add task">Add</button>
+      </div>
+    </section>
+
+    <div class="filter-bar" role="toolbar" aria-label="Task filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="completed">Done</button>
+    </div>
+
+    <ul id="task-list" class="task-list" role="list" aria-label="Tasks"></ul>
+
+    <div id="empty-state" class="empty-state" hidden>
+      <div class="empty-icon">◎</div>
+      <p class="empty-title">All clear!</p>
+      <p class="empty-sub">Add a task above to get started.</p>
+    </div>
+
+    <footer class="app-footer">
+      <span id="remaining-count" aria-live="polite"></span>
+      <button id="clear-completed-btn" hidden>Clear done</button>
+    </footer>
+  </main>
+
+  <!-- Delete confirmation toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
